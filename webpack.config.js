@@ -17,7 +17,7 @@ module.exports = {
     js: './app/boot.js',
     vendor: [
       'reflect-metadata',
-      'zone.js/dist/zone-microtask',
+      'zone.js/dist/zone',
       'core-js',
       'angular2/core',
       'angular2/router',
