@@ -9,16 +9,17 @@ const prodPlugins = [
 ]
 
 module.exports = {
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'source-map',
 
   debug: true,
 
   entry: {
     js: './app/boot.js',
     vendor: [
-      'reflect-metadata',
-      'zone.js/dist/zone-microtask',
-      'core-js',
+      path.normalize('es6-shim'),
+      path.normalize('reflect-metadata'),
+      path.normalize('zone.js/dist/zone'),
+      path.normalize('zone.js/dist/long-stack-trace-zone'),
       'angular2/core',
       'angular2/router',
       'angular2/platform/browser'
