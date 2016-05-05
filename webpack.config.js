@@ -9,9 +9,9 @@ const prodPlugins = [
 ]
 
 module.exports = {
-  devtool: 'source-map',
-
   debug: true,
+
+  devtool: 'cheap-module-source-map',
 
   entry: {
     js: './app/boot.js',
@@ -20,15 +20,19 @@ module.exports = {
       path.normalize('reflect-metadata'),
       path.normalize('zone.js/dist/zone'),
       path.normalize('zone.js/dist/long-stack-trace-zone'),
-      'angular2/core',
-      'angular2/router',
-      'angular2/platform/browser'
+      '@angular/common',
+      '@angular/compiler',
+      '@angular/core',
+      '@angular/http',
+      '@angular/platform-browser-dynamic',
+      '@angular/router-deprecated',
     ]
   },
 
   output: {
     path: __dirname + '/dist',
-    filename: 'app.js'
+    filename: 'app.js',
+    sourceMapFilename: '[name].map'
   },
 
   module: {
@@ -36,7 +40,10 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'source-map-loader',
-        exclude: [ path.resolve('node_modules') ]
+        exclude: [
+          path.resolve('node_modules/rxjs'),
+          path.resolve('node_modules/@angular')
+        ]
       }
     ],
 

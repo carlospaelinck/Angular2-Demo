@@ -1,6 +1,6 @@
-import { Component } from 'angular2/core'
-import { RouteConfig } from 'angular2/router'
-import { ROUTER_DIRECTIVES } from 'angular2/router'
+import { Component } from '@angular/core'
+import { RouteConfig } from '@angular/router-deprecated'
+import { ROUTER_DIRECTIVES } from '@angular/router-deprecated'
 import { router } from './router'
 
 @Component({
