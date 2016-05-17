@@ -14,25 +14,16 @@ module.exports = {
   devtool: 'cheap-module-source-map',
 
   entry: {
-    js: './app/boot.js',
-    vendor: [
-      path.normalize('es6-shim'),
-      path.normalize('reflect-metadata'),
-      path.normalize('zone.js/dist/zone'),
-      path.normalize('zone.js/dist/long-stack-trace-zone'),
-      '@angular/common',
-      '@angular/compiler',
-      '@angular/core',
-      '@angular/http',
-      '@angular/platform-browser-dynamic',
-      '@angular/router-deprecated',
-    ]
+    app: './app/boot.ts',
+    shim: './app/shim.ts',
+    vendor: './app/vendor.ts'
   },
 
   output: {
     path: __dirname + '/dist',
-    filename: 'app.js',
-    sourceMapFilename: '[name].map'
+    filename: '[name].bundle.js',
+    sourceMapFilename: '[name].map',
+    chunkFilename: '[id].chunk.js'
   },
 
   module: {
@@ -49,11 +40,11 @@ module.exports = {
 
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.ts$/,
         include: [
           path.resolve(__dirname, 'app')
         ],
-        loader: 'babel'
+        loader: 'awesome-typescript-loader'
       },
       {
         test: /.*\.(scss|css)$/i,
@@ -63,12 +54,17 @@ module.exports = {
         test: /\.json$/,
         loader: 'json'
       }
+    ],
+
+    noParse: [
+      path.join(__dirname, 'node_modules', 'zone.js', 'dist'),
+      path.join(__dirname, 'node_modules', 'angular2', 'bundles')
     ]
   },
 
   resolve: {
-    extensions: ['', '.js'],
-    modules: [
+    extensions: ['', '.js', '.ts'],
+    root: [
       path.join(__dirname, 'app'),
       'node_modules'
     ]
@@ -81,15 +77,14 @@ module.exports = {
         'process.env': { NODE_ENV: JSON.stringify(nodeEnv) }
     }),
 
+    new webpack.optimize.CommonsChunkPlugin({
+        name: [ 'app', 'shim', 'vendor' ],
+        minChunks: Infinity
+    }),
+
     new HtmlWebpackPlugin({
         template: 'app/index.html',
         inject: 'body'
     }),
-
-    new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        minChunks: Infinity,
-        filename: 'vendor.bundle.js'
-    })
   ]
 }
