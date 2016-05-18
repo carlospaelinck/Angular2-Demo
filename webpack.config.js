@@ -14,25 +14,16 @@ module.exports = {
   devtool: 'cheap-module-source-map',
 
   entry: {
-    js: './app/boot.js',
-    vendor: [
-      path.normalize('es6-shim'),
-      path.normalize('reflect-metadata'),
-      path.normalize('zone.js/dist/zone'),
-      path.normalize('zone.js/dist/long-stack-trace-zone'),
-      '@angular/common',
-      '@angular/compiler',
-      '@angular/core',
-      '@angular/http',
-      '@angular/platform-browser-dynamic',
-      '@angular/router-deprecated',
-    ]
+    shim: './app/shim.ts',
+    vendor: './app/vendor.ts',
+    app: './app/boot.ts'
   },
 
   output: {
     path: __dirname + '/dist',
-    filename: 'app.js',
-    sourceMapFilename: '[name].map'
+    filename: '[name].bundle.js',
+    sourceMapFilename: '[name].map',
+    chunkFilename: '[id].chunk.js'
   },
 
   module: {
@@ -49,11 +40,11 @@ module.exports = {
 
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.ts$/,
         include: [
           path.resolve(__dirname, 'app')
         ],
-        loader: 'babel'
+        loader: 'awesome-typescript-loader'
       },
       {
         test: /.*\.(scss|css)$/i,
@@ -63,15 +54,26 @@ module.exports = {
         test: /\.json$/,
         loader: 'json'
       }
+    ],
+
+    noParse: [
+      path.join(__dirname, 'node_modules', 'zone.js', 'dist'),
+      path.join(__dirname, 'node_modules', 'angular2', 'bundles')
     ]
   },
 
   resolve: {
-    extensions: ['', '.js'],
-    modules: [
-      path.join(__dirname, 'app'),
-      'node_modules'
-    ]
+    extensions: ['', '.js', '.ts'],
+    modules: [ path.join(__dirname, 'app'), 'node_modules' ]
+  },
+
+  node: {
+    global: 1,
+    crypto: 'empty',
+    module: 0,
+    Buffer: 0,
+    clearImmediate: 0,
+    setImmediate: 0
   },
 
   plugins: [
@@ -81,15 +83,14 @@ module.exports = {
         'process.env': { NODE_ENV: JSON.stringify(nodeEnv) }
     }),
 
+    new webpack.optimize.CommonsChunkPlugin({
+        name: [ 'app', 'vendor', 'shim' ],
+        minChunks: Infinity
+    }),
+
     new HtmlWebpackPlugin({
         template: 'app/index.html',
         inject: 'body'
     }),
-
-    new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        minChunks: Infinity,
-        filename: 'vendor.bundle.js'
-    })
   ]
 }
