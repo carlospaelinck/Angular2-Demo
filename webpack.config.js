@@ -14,9 +14,9 @@ module.exports = {
   devtool: 'cheap-module-source-map',
 
   entry: {
-    app: './app/boot.ts',
     shim: './app/shim.ts',
-    vendor: './app/vendor.ts'
+    vendor: './app/vendor.ts',
+    app: './app/boot.ts'
   },
 
   output: {
@@ -64,10 +64,16 @@ module.exports = {
 
   resolve: {
     extensions: ['', '.js', '.ts'],
-    root: [
-      path.join(__dirname, 'app'),
-      'node_modules'
-    ]
+    modules: [ path.join(__dirname, 'app'), 'node_modules' ]
+  },
+
+  node: {
+    global: 1,
+    crypto: 'empty',
+    module: 0,
+    Buffer: 0,
+    clearImmediate: 0,
+    setImmediate: 0
   },
 
   plugins: [
@@ -78,7 +84,7 @@ module.exports = {
     }),
 
     new webpack.optimize.CommonsChunkPlugin({
-        name: [ 'app', 'shim', 'vendor' ],
+        name: [ 'app', 'vendor', 'shim' ],
         minChunks: Infinity
     }),
 

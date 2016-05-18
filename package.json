@@ -12,7 +12,7 @@
     "@angular/platform-browser-dynamic": "2.0.0-rc.1",
     "@angular/router-deprecated": "2.0.0-rc.1",
     "@angular/upgrade": "2.0.0-rc.1",
-    "core-js": "2.2.0",
+    "core-js": "^2.4.0",
     "es6-promise": "3.1.2",
     "es6-shim": "0.35.0",
     "file-loader": "^0.8.5",
@@ -24,7 +24,7 @@
     "zone.js": "~0.6.12"
   },
   "devDependencies": {
-    "awesome-typescript-loader": "^0.17.0",
+    "awesome-typescript-loader": "~0.17.0",
     "css-loader": "^0.23.1",
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.10.0",
@@ -32,13 +32,13 @@
     "source-map-loader": "^0.1.5",
     "strip-sourcemap-loader": "0.0.1",
     "style-loader": "^0.13.1",
-    "typescript": "^1.8.9",
+    "typescript": "~1.8.9",
     "url-loader": "^0.5.7",
-    "webpack": "^2.1.0-beta.6",
-    "webpack-dev-server": "^2.0.0-beta"
+    "webpack": "^2.1.0-beta.7",
+    "webpack-dev-server": "^2.1.0-beta.0"
   },
   "scripts": {
-    "build" : "webpack --progress --display-error-details",
+    "build": "webpack --progress --display-error-details",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "set NODE_ENV=development; ./node_modules/.bin/webpack-dev-server --history-api-fallback --progress --port 8080;"
   },
