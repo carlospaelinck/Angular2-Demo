@@ -1,13 +1,13 @@
 import { Component } from '@angular/core'
 
 @Component({
-  selector: 'about',
+  selector: 'dashboard-view',
   template: `
-    <h1>About Page</h1>
+    <h1>Dashboard</h1>
   `
 })
 
-export class AboutComponent {
+export class DashboardViewComponent {
   constructor() {
 
   }

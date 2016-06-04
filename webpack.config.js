@@ -3,15 +3,26 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 
 const nodeEnv = process.env.NODE_ENV || 'development'
+const isProduction = nodeEnv.toLowerCase() === 'production'
 
-const prodPlugins = [
-
-]
+const prodPlugins = isProduction ? [
+  new webpack.optimize.DedupePlugin(),
+  new webpack.optimize.UglifyJsPlugin({
+    mangle: false,
+    sourceMap: false,
+    compress: {
+      dead_code: true,
+      screw_ie8: true,
+      unused: true,
+      warnings: false
+    }
+  })
+] : []
 
 module.exports = {
-  debug: true,
+  debug: !isProduction,
 
-  devtool: 'cheap-module-source-map',
+  devtool: isProduction ? '' : 'cheap-module-source-map',
 
   entry: {
     shim: './app/shim.ts',
@@ -47,8 +58,9 @@ module.exports = {
         loader: 'awesome-typescript-loader'
       },
       {
-        test: /.*\.(scss|css)$/i,
-        loaders: [ 'style', 'css', 'sass' ]
+        test: /.*\.(scss)$/i,
+        exclude: /node_modules/,
+        loaders: [ 'raw', 'sass' ]
       },
       {
         test: /\.json$/,

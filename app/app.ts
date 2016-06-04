@@ -1,14 +1,28 @@
-import { Component } from '@angular/core'
+import { Component, OnInit, ViewEncapsulation } from '@angular/core'
+import { Router, Routes, RouteSegment, ROUTER_DIRECTIVES } from '@angular/router'
+import { DashboardViewComponent } from './components/dashboard/dashboard.view'
 
 @Component({
   selector: 'my-app',
-  directives: [ ],
+  directives: [ ROUTER_DIRECTIVES ],
+  encapsulation: ViewEncapsulation.None,
+  styles: [ require('./app.scss') ],
   template: `
-    <h1>Angular 2 Demo</h1>
+    <div class="app-content">
+      <router-outlet></router-outlet>
+    <div>
   `
 })
 
-export class AppComponent {
-  constructor() {
+@Routes([
+  { path: '/dashboard', component: DashboardViewComponent },
+  { path: '*', component: DashboardViewComponent },
+])
+
+export class AppComponent implements OnInit {
+  constructor(private router: Router) { }
+
+  ngOnInit() {
+    this.router.navigate(['/dashboard'])
   }
 }
