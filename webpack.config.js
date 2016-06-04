@@ -58,9 +58,18 @@ module.exports = {
         loader: 'awesome-typescript-loader'
       },
       {
-        test: /.*\.(scss)$/i,
+        test: /.*\.(scss)$/,
         exclude: /node_modules/,
-        loaders: [ 'raw', 'sass' ]
+        loaders: [ 'exports?module.exports.toString()', 'css', 'sass' ]
+      },
+      {
+        test: /.*\.(html)$/i,
+        exclude: /node_modules/,
+        loaders: [ 'html' ]
+      },
+      {
+        test: /\.(eot|woff|ttf|svg|png|otf)$/,
+        loaders: [ { loader: 'url', query: { limit: 100 } } ]
       },
       {
         test: /\.json$/,
