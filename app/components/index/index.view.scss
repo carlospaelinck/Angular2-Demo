@@ -1,7 +1,20 @@
+@import '~assets/styles/variables';
+
+:host {
+  text-align: center;
+}
+
 .pizza-image {
   background-image: url('~assets/images/pizza-icon.svg');
-  background-size: 265px 275px;
-  width: 265px;
-  height: 275px;
+  background-size: 262px 273px;
+  height: 273px;
   display: block;
+  margin: 1em auto;
+  width: 262px;
+}
+
+h1 {
+  color: $brown;
+  font-family: 'Satisfy';
+  font-size: 4em;
 }
