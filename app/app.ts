@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core'
-import { Router, Routes, RouteSegment, ROUTER_DIRECTIVES } from '@angular/router'
+import { Router, Routes, ROUTER_DIRECTIVES } from '@angular/router'
 import { IndexViewComponent } from './components/index/index.view'
+import { BuilderViewComponent } from './components/builder/builder.view'
 import { HeaderView } from './components/navigation/header.view'
 import { FooterView } from './components/navigation/footer.view'
 
@@ -10,16 +11,17 @@ import { FooterView } from './components/navigation/footer.view'
   encapsulation: ViewEncapsulation.None,
   styles: [ require('./app.scss') ],
   template: `
+    <header-view></header-view>
     <div class="app-content">
-      <header-view></header-view>
       <router-outlet></router-outlet>
-      <footer-view></footer-view>
     <div>
+    <footer-view></footer-view>
   `
 })
 
 @Routes([
   { path: '/', component: IndexViewComponent },
+  { path: '/builder', component: BuilderViewComponent },
   { path: '*', component: IndexViewComponent },
 ])
 
