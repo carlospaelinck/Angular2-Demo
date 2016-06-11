@@ -2,7 +2,7 @@ import { Pizza } from './pizza'
 
 export class Order {
   name: string = ''
-  pizzas: Pizza = []
+  pizzas: Array<Pizza> = []
 
   totalCost(): number {
     let totalCost = 0

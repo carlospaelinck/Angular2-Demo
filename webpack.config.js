@@ -8,7 +8,7 @@ const isProduction = nodeEnv.toLowerCase() === 'production'
 const prodPlugins = isProduction ? [
   new webpack.optimize.DedupePlugin(),
   new webpack.optimize.UglifyJsPlugin({
-    mangle: false,
+    mangle: true,
     sourceMap: false,
     compress: {
       dead_code: true,

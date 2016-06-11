@@ -1,15 +1,20 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core'
 import { Router, Routes, ROUTER_DIRECTIVES } from '@angular/router'
+
 import { IndexViewComponent } from './components/index/index.view'
 import { BuilderViewComponent } from './components/builder/builder.view'
+
 import { HeaderView } from './components/navigation/header.view'
 import { FooterView } from './components/navigation/footer.view'
+
+import OrderService from './services/order'
 
 @Component({
   selector: 'my-app',
   directives: [ ROUTER_DIRECTIVES, FooterView, HeaderView ],
   encapsulation: ViewEncapsulation.None,
   styles: [ require('./app.scss') ],
+  providers: [ OrderService ],
   template: `
     <header-view></header-view>
     <div class="app-content">
