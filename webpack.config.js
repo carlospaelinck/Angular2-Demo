@@ -45,7 +45,8 @@ module.exports = {
         loader: 'source-map-loader',
         exclude: [
           path.resolve('node_modules/rxjs'),
-          path.resolve('node_modules/@angular')
+          path.resolve('node_modules/@angular'),
+          path.resolve('node_modules/@ngrx')
         ]
       }
     ],
