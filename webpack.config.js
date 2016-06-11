@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin
 const path = require('path')
 
 const nodeEnv = process.env.NODE_ENV || 'development'
@@ -104,6 +105,8 @@ module.exports = {
         'process.env': { NODE_ENV: JSON.stringify(nodeEnv) }
     }),
 
+    new ForkCheckerPlugin(),
+
     new webpack.optimize.CommonsChunkPlugin({
         name: [ 'app', 'vendor', 'shim' ],
         minChunks: Infinity
@@ -113,5 +116,14 @@ module.exports = {
         template: 'app/index.html',
         inject: 'body'
     }),
-  ]
+  ],
+
+  devServer: {
+    stats: {
+      colors: true,
+      chunks: false,
+      assets: false,
+      warnings: false
+    }
+  }
 }

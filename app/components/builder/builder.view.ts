@@ -1,28 +1,35 @@
 import { Component } from '@angular/core'
+import { Observable, Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { AppState } from '../../reducers/'
 import { BuilderStepComponent } from './step/builder.step'
-import { Router, Routes, ROUTER_DIRECTIVES } from '@angular/router'
-import PizzaService from '../../services/pizza'
 
 @Component({
   selector: 'builder-view',
   styles: [ require('./builder.view.scss') ],
   template: require('./builder.view.html'),
-  directives: [ ROUTER_DIRECTIVES ],
-  providers: [ PizzaService ]
 })
 
-@Routes([
-  { path: '/step/:step', component: BuilderStepComponent }
-])
-
 export class BuilderViewComponent {
+  pizzaObservable: Observable<any>
+  pizzaSubscription: Subscription
+  pizza: any
+
   constructor(
-    private router: Router,
-    private pizzaService: PizzaService) { }
+    private store: Store<AppState>) {
+
+    this.pizzaObservable = this.store.select('pizza')
+    this.pizzaSubscription = this.pizzaObservable.subscribe(pizza => this.pizza = pizza)
+  }
 
   ngOnInit() {
-    this.pizzaService.stepObserver.subscribe(step => {
-      this.router.navigate([`/builder/step/${step}`])
-    })
+    // this.pizzaService.stepObserver.subscribe(step => {
+    //   this.router.navigate([`/builder/step/${step}`])
+    // })
+  }
+
+  ngOnDestroy() {
+    this.pizzaSubscription.unsubscribe()
   }
 }

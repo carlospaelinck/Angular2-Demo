@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core'
-import { Router, Routes, ROUTER_DIRECTIVES } from '@angular/router'
 
 import { IndexViewComponent } from './components/index/index.view'
 import { BuilderViewComponent } from './components/builder/builder.view'
@@ -7,33 +6,23 @@ import { BuilderViewComponent } from './components/builder/builder.view'
 import { HeaderView } from './components/navigation/header.view'
 import { FooterView } from './components/navigation/footer.view'
 
-import OrderService from './services/order'
-
 @Component({
   selector: 'my-app',
-  directives: [ ROUTER_DIRECTIVES, FooterView, HeaderView ],
+  directives: [ FooterView, HeaderView ],
   encapsulation: ViewEncapsulation.None,
   styles: [ require('./app.scss') ],
-  providers: [ OrderService ],
   template: `
     <header-view></header-view>
     <div class="app-content">
-      <router-outlet></router-outlet>
+      <route-view></route-view>
     <div>
     <footer-view></footer-view>
   `
 })
 
-@Routes([
-  { path: '/', component: IndexViewComponent },
-  { path: '/builder', component: BuilderViewComponent },
-  { path: '*', component: IndexViewComponent },
-])
-
 export class AppComponent implements OnInit {
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit() {
-    this.router.navigate(['/'])
   }
 }
