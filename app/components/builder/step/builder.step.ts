@@ -4,6 +4,7 @@ import { Router } from '@ngrx/router'
 import { Observable, Subscription } from 'rxjs'
 import { ingredientsForStep } from '../../../helpers/ingredients'
 import { PizzaActions } from '../../../actions/pizza'
+import { OrderActions } from '../../../actions/order'
 import { steps } from '../../../reducers/pizza'
 
 @Component({
@@ -23,6 +24,7 @@ export class BuilderStepComponent {
   constructor(
     private store: Store<any>,
     private pizzaActions: PizzaActions,
+    private orderActions: OrderActions,
     private router: Router
   ) {
     this.pizza = this.store.select('pizza')
@@ -68,6 +70,14 @@ export class BuilderStepComponent {
 
   returnToPreviousStep() {
     this.store.dispatch(this.pizzaActions.previousStep())
+  }
+
+  addPizzaToOrder() {
+    this.pizza.subscribe(pizza => {
+      this.store.dispatch(this.orderActions.addToOrder(pizza))
+    }).unsubscribe()
+
+    this.router.go('/cart')
   }
 
   ngOnDestroy() {

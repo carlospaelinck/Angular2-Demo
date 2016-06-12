@@ -1,0 +1,11 @@
+<div *ngFor="let pizza of (order | async)?.pizzas">
+  <cart-item [pizza]="pizza"></cart-item>
+</div>
+
+<input type="text" [(ngModel)]="customerName" />
+{{ customerName }}
+<button
+  [disabled]="customerName.length == 0 || (order | async)?.pizzas.length == 0"
+  (click)="placeOrder()">
+  Place Order
+</button>

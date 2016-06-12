@@ -11,9 +11,9 @@ import { Observable } from 'rxjs'
       <div class="links">
         <a [linkTo]="'/'">Home</a>
         <a [linkTo]="'/builder'">Create a Pizza</a>
-      </div>
-      <div>
-        {{ (order | async)?.pizzas.length }}
+        <a [linkTo]="'/cart'">
+          Order: {{ (order | async)?.pizzas.length }}
+        </a>
       </div>
     </header>
   `
