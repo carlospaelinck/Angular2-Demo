@@ -1,1 +1,3 @@
-<router-outlet></router-outlet>
+{{ (pizza | async)?.price | currency : 'USD' : true }}
+
+<route-view></route-view>

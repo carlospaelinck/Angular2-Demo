@@ -20,9 +20,4 @@ import { FooterView } from './components/navigation/footer.view'
   `
 })
 
-export class AppComponent implements OnInit {
-  constructor() { }
-
-  ngOnInit() {
-  }
-}
+export class AppComponent {}

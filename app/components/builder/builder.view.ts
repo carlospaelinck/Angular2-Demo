@@ -1,9 +1,9 @@
 import { Component } from '@angular/core'
 import { Observable, Subscription } from 'rxjs'
 import { Store } from '@ngrx/store'
-
-import { AppState } from '../../reducers/'
+import { Router } from '@ngrx/router'
 import { BuilderStepComponent } from './step/builder.step'
+import { PizzaActions } from '../../actions/pizza'
 
 @Component({
   selector: 'builder-view',
@@ -12,24 +12,32 @@ import { BuilderStepComponent } from './step/builder.step'
 })
 
 export class BuilderViewComponent {
-  pizzaObservable: Observable<any>
-  pizzaSubscription: Subscription
-  pizza: any
+  pizza: Observable<any>
+  subscriptions: Array<Subscription>
 
   constructor(
-    private store: Store<AppState>) {
+    private store: Store<any>,
+    private pizzaActions: PizzaActions,
+    private router: Router
+  ) {
+    this.pizza = store.select('pizza')
 
-    this.pizzaObservable = this.store.select('pizza')
-    this.pizzaSubscription = this.pizzaObservable.subscribe(pizza => this.pizza = pizza)
-  }
+    this.subscriptions = [
+      /* Whenever the user navigates to the base route,
+       * create a new pizza. */
+      store.select('router').subscribe((route: any) => {
+        if (route.path === '/builder') {
+          this.store.dispatch(this.pizzaActions.createNewPizza())
+        }
+      }),
 
-  ngOnInit() {
-    // this.pizzaService.stepObserver.subscribe(step => {
-    //   this.router.navigate([`/builder/step/${step}`])
-    // })
+      /* Listen to the step changes on the pizza state and
+       * navigate to the builder child route. */
+      this.pizza.subscribe(pizza => router.go(`/builder/${pizza.step}`))
+    ]
   }
 
   ngOnDestroy() {
-    this.pizzaSubscription.unsubscribe()
+    this.subscriptions.forEach(s => s.unsubscribe())
   }
 }
