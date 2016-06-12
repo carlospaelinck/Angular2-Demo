@@ -1,2 +1,13 @@
+<div *ngFor="let ingredient of availableIngredients">
+  <input
+    #ingredientElement
+    [type]="allowMultipleIngredients ? 'checkbox' : 'radio'"
+    name="ingredient"
+    [value]="ingredient"
+    [checked]="(currentSelection | async)?.includes(ingredient)"
+    (click)="ingredientElementSelected(ingredientElement)">
+  {{ ingredient }}
+</div>
+
 <button (click)="returnToPreviousStep()">Back</button>
 <button (click)="proceedToNextStep()">Next</button>

@@ -1,5 +1,6 @@
 import { ActionReducer, Action } from '@ngrx/store'
 import { PizzaActions } from '../actions/pizza'
+const { without } = require('lodash')
 
 const defaultState = {
   ingredients: {
@@ -22,8 +23,19 @@ export const pizzaReducer: ActionReducer<Object> = (state = defaultState, action
     }
 
     case PizzaActions.UPDATE_PIZZA: {
-      const ingredients = Object.assign({}, state.ingredients, action.payload)
-      const price = ingredients.meat.length * 1.79 + ingredients.veggies.length * 0.99
+      let updatedIngredient = {}
+      const currentSelection = state.ingredients[state.step]
+
+      if (currentSelection instanceof Array && action.payload.checked) {
+        updatedIngredient[state.step] = [ ...currentSelection, action.payload.value ]
+      } else if (currentSelection instanceof Array && !action.payload.checked) {
+        updatedIngredient[state.step] = without(currentSelection, action.payload.value)
+      } else {
+        updatedIngredient[state.step] = action.payload.value
+      }
+
+      const ingredients = Object.assign({}, state.ingredients, updatedIngredient)
+      const price = 7.99 + ingredients.meat.length * 1.99 + ingredients.veggies.length * 0.99
       return Object.assign({}, state, { ingredients, price })
     }
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { Store } from '@ngrx/store'
-import { Observable, Subscription } from 'rxjs'
+import { Observable, Subscription, Subject, BehaviorSubject } from 'rxjs'
 import { ingredientsForStep } from '../../../helpers/ingredients'
 import { PizzaActions } from '../../../actions/pizza'
 
@@ -15,6 +15,7 @@ export class BuilderStepComponent {
   subscription: Subscription
   availableIngredients: Array<string> = []
   allowMultipleIngredients: boolean = false
+  currentSelection: Subject<any> = new BehaviorSubject(null)
 
   constructor(
     private store: Store<any>,
@@ -26,18 +27,31 @@ export class BuilderStepComponent {
      * ingredient buttons to show. Some steps allow a single choice
      * or multiple or no choices. */
     this.subscription = this.pizza.subscribe(pizza => {
-      const { step } = pizza
+      const { step, ingredients } = pizza
+      this.currentSelection.next(ingredients[step])
       this.availableIngredients = ingredientsForStep(step)
       this.allowMultipleIngredients = pizza.ingredients[step] instanceof Array
     })
   }
 
+  ingredientElementSelected(ingredient: HTMLInputElement) {
+    /* Get the value from the input element and determine if
+     * is selected and dispatch the update pizza action. */
+    this.store.dispatch(this.pizzaActions.updatePizza({
+      value: ingredient.value,
+      checked: ingredient.checked
+    }))
+  }
+
   proceedToNextStep() {
-    // this.store.dispatch(this.pizzaActions.updatePizza({}))
     this.store.dispatch(this.pizzaActions.nextStep())
   }
 
   returnToPreviousStep() {
     this.store.dispatch(this.pizzaActions.previousStep())
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
   }
 }

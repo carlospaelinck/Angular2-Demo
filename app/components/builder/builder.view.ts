@@ -32,8 +32,11 @@ export class BuilderViewComponent {
       }),
 
       /* Listen to the step changes on the pizza state and
-       * navigate to the builder child route. */
-      this.pizza.subscribe(pizza => router.go(`/builder/${pizza.step}`))
+       * navigate to the builder child route only when the
+       * step property changes. */
+      this.pizza
+        .distinctUntilChanged(null, pizza => pizza.step)
+        .subscribe(pizza => router.go(`/builder/${pizza.step}`))
     ]
   }
 
