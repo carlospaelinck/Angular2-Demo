@@ -1,9 +1,10 @@
 import { Component } from '@angular/core'
+import { Store } from '@ngrx/store'
+import { Observable } from 'rxjs'
 
 @Component({
   selector: 'header-view',
   styles: [ require('./header.view.scss') ],
-  directives: [ ],
   template: `
     <header>
       <h1>Milo’s Pizza</h1>
@@ -11,8 +12,17 @@ import { Component } from '@angular/core'
         <a [linkTo]="'/'">Home</a>
         <a [linkTo]="'/builder'">Create a Pizza</a>
       </div>
+      <div>
+        {{ (order | async)?.pizzas.length }}
+      </div>
     </header>
   `
 })
 
-export class HeaderView { }
+export class HeaderView {
+  order: Observable<any>
+
+  constructor(private store: Store<any>) {
+    this.order = this.store.select('order')
+  }
+}

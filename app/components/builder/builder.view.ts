@@ -41,6 +41,6 @@ export class BuilderViewComponent {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(s => s.unsubscribe())
+    this.subscriptions.forEach(subscriber => subscriber.unsubscribe())
   }
 }

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core'
 import { Store } from '@ngrx/store'
-import { Observable, Subscription, Subject, BehaviorSubject } from 'rxjs'
+import { Router } from '@ngrx/router'
+import { Observable, Subscription } from 'rxjs'
 import { ingredientsForStep } from '../../../helpers/ingredients'
 import { PizzaActions } from '../../../actions/pizza'
+import { steps } from '../../../reducers/pizza'
 
 @Component({
   selector: 'builder-step',
@@ -15,11 +17,13 @@ export class BuilderStepComponent {
   subscription: Subscription
   availableIngredients: Array<string> = []
   allowMultipleIngredients: boolean = false
-  currentSelection: Subject<any> = new BehaviorSubject(null)
+  currentSelection: any = null
+  buttonVisibility: Object = { back: false, next: false, addToCart: false }
 
   constructor(
     private store: Store<any>,
-    private pizzaActions: PizzaActions
+    private pizzaActions: PizzaActions,
+    private router: Router
   ) {
     this.pizza = this.store.select('pizza')
 
@@ -28,9 +32,24 @@ export class BuilderStepComponent {
      * or multiple or no choices. */
     this.subscription = this.pizza.subscribe(pizza => {
       const { step, ingredients } = pizza
-      this.currentSelection.next(ingredients[step])
+      this.currentSelection = ingredients[step]
       this.availableIngredients = ingredientsForStep(step)
       this.allowMultipleIngredients = pizza.ingredients[step] instanceof Array
+
+      /* Determine which navigation buttons to show depending on what
+       * current build step. */
+      switch (steps.indexOf(step)) {
+        case 0:
+        this.buttonVisibility = { back: false, next: true, addToCart: false }
+        break
+
+        case steps.length - 1:
+        this.buttonVisibility = { back: true, next: false, addToCart: true }
+        break
+
+        default:
+        this.buttonVisibility = { back: true, next: true, addToCart: false }
+      }
     })
   }
 

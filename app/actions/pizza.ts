@@ -11,10 +11,7 @@ export class PizzaActions {
 
   static UPDATE_PIZZA = 'UPDATE_PIZZA'
   updatePizza(payload: Object): Action {
-    return {
-      type: PizzaActions.UPDATE_PIZZA,
-      payload
-    }
+    return { type: PizzaActions.UPDATE_PIZZA, payload }
   }
 
   static NEXT_STEP = 'NEXT_STEP'
