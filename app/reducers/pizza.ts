@@ -1,7 +1,9 @@
 import { ActionReducer, Action } from '@ngrx/store'
 import { PizzaActions } from '../actions/pizza'
+const uuid = require('uuid')
 
 const defaultState = {
+  id: null,
   ingredients: {
     crust: 'Pan',
     cheese: 'Standard',
@@ -18,7 +20,7 @@ export const steps = Object.keys(defaultState.ingredients)
 export const pizzaReducer: ActionReducer<Object> = (state = defaultState, action: Action) => {
   switch (action.type) {
     case PizzaActions.CREATE_NEW_PIZZA: {
-      return Object.assign({}, defaultState)
+      return Object.assign({}, defaultState, { id: uuid() })
     }
 
     case PizzaActions.UPDATE_PIZZA: {

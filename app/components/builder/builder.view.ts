@@ -13,7 +13,7 @@ import { PizzaActions } from '../../actions/pizza'
 
 export class BuilderViewComponent {
   pizza: Observable<any>
-  subscriptions: Array<Subscription>
+  subscription: Subscription
 
   constructor(
     private store: Store<any>,
@@ -21,26 +21,17 @@ export class BuilderViewComponent {
     private router: Router
   ) {
     this.pizza = store.select('pizza')
+    this.pizzaActions.createNewPizza()
 
-    this.subscriptions = [
-      /* Whenever the user navigates to the base route,
-       * create a new pizza. */
-      store.select('router').subscribe((route: any) => {
-        if (route.path === '/builder') {
-          this.store.dispatch(this.pizzaActions.createNewPizza())
-        }
-      }),
-
-      /* Listen to the step changes on the pizza state and
-       * navigate to the builder child route only when the
-       * step property changes. */
-      this.pizza
-        .distinctUntilChanged(null, pizza => pizza.step)
-        .subscribe(pizza => router.go(`/builder/${pizza.step}`))
-    ]
+    /* Listen to the step changes on the pizza state and
+     * navigate to the builder child route only when the
+     * step property changes. */
+    this.subscription = this.pizza
+      .distinctUntilChanged(null, pizza => pizza.step)
+      .subscribe(pizza => router.go(`/builder/${pizza.step}`))
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(subscriber => subscriber.unsubscribe())
+    this.subscription.unsubscribe()
   }
 }

@@ -25,17 +25,21 @@ export class CartViewComponent {
     this.order = this.store.select('order')
 
     this.subscription = this.order.subscribe(order => {
-      if (order.status == 'PLACED') {
+      if (order.status === 'SUCCESS') {
         alert(`Order Placed for ${order.customerName}.`)
-        this.store.dispatch(this.orderActions.createNewOrder())
+        this.orderActions.createNewOrder()
         this.router.go('/')
       }
     })
   }
 
+  removePizzaFromCart(pizza: any) {
+    console.debug(pizza)
+  }
+
   placeOrder() {
-    this.store.dispatch(this.orderActions.setCustomerName(this.customerName))
-    this.store.dispatch(this.orderActions.placeOrder())
+    this.orderActions.setCustomerName(this.customerName)
+    this.orderActions.placeOrder()
   }
 
   ngOnDestroy() {

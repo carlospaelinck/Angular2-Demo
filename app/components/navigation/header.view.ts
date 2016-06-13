@@ -10,7 +10,6 @@ import { Observable } from 'rxjs'
       <h1>Milo’s Pizza</h1>
       <div class="links">
         <a [linkTo]="'/'">Home</a>
-        <a [linkTo]="'/builder'">Create a Pizza</a>
         <a [linkTo]="'/cart'">
           Order: {{ (order | async)?.pizzas.length }}
         </a>

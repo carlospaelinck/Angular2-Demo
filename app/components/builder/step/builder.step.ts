@@ -58,23 +58,23 @@ export class BuilderStepComponent {
   ingredientElementSelected(ingredient: HTMLInputElement) {
     /* Get the value from the input element and determine if
      * is selected and dispatch the update pizza action. */
-    this.store.dispatch(this.pizzaActions.updatePizza({
+    this.pizzaActions.updatePizza({
       value: ingredient.value,
       checked: ingredient.checked
-    }))
+    })
   }
 
   proceedToNextStep() {
-    this.store.dispatch(this.pizzaActions.nextStep())
+    this.pizzaActions.nextStep()
   }
 
   returnToPreviousStep() {
-    this.store.dispatch(this.pizzaActions.previousStep())
+    this.pizzaActions.previousStep()
   }
 
   addPizzaToOrder() {
     this.pizza.subscribe(pizza => {
-      this.store.dispatch(this.orderActions.addToOrder(pizza))
+      this.orderActions.addToOrder(pizza)
     }).unsubscribe()
 
     this.router.go('/cart')
