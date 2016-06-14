@@ -19,9 +19,9 @@ import { Observable } from 'rxjs'
 })
 
 export class HeaderView {
-  order: Observable<any>
+  order: Observable<Object>
 
-  constructor(private store: Store<any>) {
+  constructor(private store: Store<Object>) {
     this.order = this.store.select('order')
   }
 }

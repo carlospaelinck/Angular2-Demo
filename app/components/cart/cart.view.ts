@@ -13,18 +13,19 @@ import { CartItemComponent } from './item/cart.item'
 })
 
 export class CartViewComponent {
-  order: Observable<any>
+  order: Observable<Object>
   subscription: Subscription
   customerName: string = ''
+  totalPrice: number = 0
 
   constructor(
     private orderActions: OrderActions,
     private router: Router,
-    private store: Store<any>
+    private store: Store<Object>
   ) {
     this.order = this.store.select('order')
 
-    this.subscription = this.order.subscribe(order => {
+    this.subscription = this.order.subscribe((order: any) => {
       if (order.status === 'SUCCESS') {
         alert(`Order Placed for ${order.customerName}.`)
         this.orderActions.createNewOrder()
@@ -33,8 +34,8 @@ export class CartViewComponent {
     })
   }
 
-  removePizzaFromCart(pizza: any) {
-    console.debug(pizza)
+  removePizzaFromCart(pizza: Object) {
+    this.orderActions.removeFromOrder(pizza)
   }
 
   placeOrder() {

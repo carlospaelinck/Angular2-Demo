@@ -15,7 +15,7 @@ export const routes: Routes = [
   },
   {
     path: '/builder',
-    guards: [ AuthenticationGuard ]
+    guards: [ AuthenticationGuard ],
     component: BuilderViewComponent
   },
   {

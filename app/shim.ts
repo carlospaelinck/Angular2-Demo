@@ -1,3 +1,3 @@
 import 'core-js'
-require('zone.js/dist/zone')
-require('zone.js/dist/long-stack-trace-zone')
+import 'zone.js/dist/zone'
+import 'zone.js/dist/long-stack-trace-zone'

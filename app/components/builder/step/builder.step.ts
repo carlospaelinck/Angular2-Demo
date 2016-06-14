@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { Router } from '@ngrx/router'
+import { Store } from '@ngrx/store'
 import { Observable, Subscription } from 'rxjs'
 import { ingredientsForStep } from '../../../helpers/ingredients'
 import { PizzaActions } from '../../../actions/pizza'

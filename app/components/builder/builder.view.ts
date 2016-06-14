@@ -13,10 +13,10 @@ import { PizzaActions } from '../../actions/pizza'
 })
 
 export class BuilderViewComponent {
-  pizza: Observable<any>
+  pizza: Observable<Object>
 
   constructor(
-    private store: Store<any>,
+    private store: Store<Object>,
     private pizzaActions: PizzaActions,
     private router: Router
   ) {

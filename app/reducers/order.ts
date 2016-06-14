@@ -3,7 +3,6 @@ import { OrderActions } from '../actions/order'
 
 const defaultState = {
   pizzas: [],
-  totalPrice: 0,
   customerName: '',
   status: 'NEW'
 }
@@ -21,14 +20,12 @@ export const orderReducer: ActionReducer<Object> = (state = defaultState, action
         price: action.payload.price
       }
       const pizzas = [ ...state.pizzas, pizza ]
-      const totalPrice = state.totalPrice + action.payload.price
-      return Object.assign({}, state, { pizzas, totalPrice })
+      return Object.assign({}, state, { pizzas })
     }
 
     case OrderActions.REMOVE_FROM_ORDER: {
       const pizzas = state.pizzas.filter(pizza => pizza.id !== action.payload.id)
-      const totalPrice = state.totalPrice - action.payload.price
-      return Object.assign({}, state, { pizzas, totalPrice })
+      return Object.assign({}, state, { pizzas })
     }
 
     case OrderActions.SET_CUSTOMER_NAME: {

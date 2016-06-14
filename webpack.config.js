@@ -1,6 +1,5 @@
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin
 const path = require('path')
 
 const nodeEnv = process.env.NODE_ENV || 'development'
@@ -28,7 +27,7 @@ module.exports = {
   entry: {
     shim: './app/shim.ts',
     vendor: './app/vendor.ts',
-    app: './app/boot.ts'
+    app: './app/app.ts'
   },
 
   output: {
@@ -57,7 +56,7 @@ module.exports = {
         include: [
           path.resolve(__dirname, 'app')
         ],
-        loader: 'awesome-typescript-loader'
+        loader: 'awesome-typescript'
       },
       {
         test: /.*\.(scss)$/,
@@ -87,7 +86,14 @@ module.exports = {
 
   resolve: {
     extensions: [ '', '.js', '.ts' ],
-    modules: [ path.resolve(__dirname, 'app'), 'node_modules' ]
+    modules: [ path.resolve(__dirname, 'app'), 'node_modules' ],
+    alias: {
+      services: path.resolve(__dirname, 'app/services'),
+      components: path.resolve(__dirname, 'app/components'),
+      reducers: path.resolve(__dirname, 'app/reducers'),
+      models: path.resolve(__dirname, 'app/models'),
+      actions: path.resolve(__dirname, 'app/actions')
+    }
   },
 
   node: {
@@ -106,8 +112,6 @@ module.exports = {
         'process.env': { NODE_ENV: JSON.stringify(nodeEnv) }
     }),
 
-    new ForkCheckerPlugin(),
-
     new webpack.optimize.CommonsChunkPlugin({
         name: [ 'app', 'vendor', 'shim' ],
         minChunks: Infinity
@@ -123,8 +127,7 @@ module.exports = {
     stats: {
       colors: true,
       chunks: false,
-      assets: false,
-      warnings: false
+      assets: true
     }
   }
 }
