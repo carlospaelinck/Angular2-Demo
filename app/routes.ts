@@ -1,8 +1,11 @@
 import { Routes } from '@ngrx/router'
 
+/* Guards */
+import { AuthenticationGuard } from './guards/auth'
+
+/* Components */
 import { IndexViewComponent } from './components/index/index.view'
 import { BuilderViewComponent } from './components/builder/builder.view'
-import { BuilderStepComponent} from './components/builder/step/builder.step'
 import { CartViewComponent } from './components/cart/cart.view'
 
 export const routes: Routes = [
@@ -12,13 +15,8 @@ export const routes: Routes = [
   },
   {
     path: '/builder',
-    component: BuilderViewComponent,
-    children: [
-      {
-        path: ':step',
-        component: BuilderStepComponent
-      }
-    ]
+    guards: [ AuthenticationGuard ]
+    component: BuilderViewComponent
   },
   {
     path: '/cart',

@@ -6,3 +6,6 @@ import 'rxjs/Rx'
 
 import '@ngrx/store'
 import '@ngrx/router'
+import '@ngrx/router-store'
+
+require('uuid')
