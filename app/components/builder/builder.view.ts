@@ -14,6 +14,7 @@ import { PizzaActions } from '../../actions/pizza'
 
 export class BuilderViewComponent {
   pizza: Observable<Object>
+  instructions: Object
 
   constructor(
     private store: Store<Object>,
@@ -22,5 +23,13 @@ export class BuilderViewComponent {
   ) {
     this.pizza = store.select('pizza')
     this.pizzaActions.createNewPizza()
+
+    this.instructions = {
+      crust: 'Choose a crust for your pizza.',
+      cheese: 'Choose the amount of mozzarella cheese on your pizza.',
+      sauce: 'Choose a sauce for your pizza.',
+      meat: 'Pick any meats for your pizza. Each meat costs $1.99 extra.',
+      veggies: 'Pick any veggies for your pizza. Each veggie costs 99¢ extra.'
+    }
   }
 }

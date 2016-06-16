@@ -1,8 +1,7 @@
 @import '~assets/styles/variables';
 
 header {
-  background: $cream;
-  border-bottom: 1px solid darken($cream, 25%);
+  background: $brown;
   padding: 5px 0;
   width: 100%;
 }
@@ -11,5 +10,5 @@ h1 {
   font-family: 'Satisfy';
   font-size: 1.5em;
   padding: 0 0 0 10px;
-  color: $brown;
+  color: #fff;
 }

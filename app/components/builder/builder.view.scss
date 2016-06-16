@@ -1,0 +1,27 @@
+@import '~assets/styles/variables';
+
+.progress-bar {
+  background: $light-brown;
+  padding: 1em;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: stretch;
+
+  .instructions {
+    flex: 1 auto;
+    line-height: 50px;
+    color: darken($brown, 10%);
+    font-weight: 500;
+    font-size: 1.5em;
+  }
+
+  .price {
+    background: $brown;
+    border-radius: 4px;
+    color: #fff;
+    display: inline-block;
+    font-size: 1.75em;
+    line-height: 50px;
+    padding: 0 1em;
+  }
+}

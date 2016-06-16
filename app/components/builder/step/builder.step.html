@@ -1,28 +1,36 @@
-<div *ngFor="let ingredient of availableIngredients">
-  <input
-    #ingredientElement
-    [type]="allowMultipleIngredients ? 'checkbox' : 'radio'"
-    name="ingredient"
-    [value]="ingredient"
-    [checked]="currentSelection?.includes(ingredient)"
-    (click)="ingredientElementSelected(ingredientElement)">
-  {{ ingredient }}
+<div class="selections">
+  <div class="selection" *ngFor="let ingredient of availableIngredients; #idx = index">
+    <input
+      id="selection-{{idx}}"
+      #ingredientElement
+      [type]="allowMultipleIngredients ? 'checkbox' : 'radio'"
+      name="ingredient"
+      [value]="ingredient"
+      [checked]="currentSelection?.includes(ingredient)"
+      (click)="ingredientElementSelected(ingredientElement)">
+    <label htmlFor="selection-{{idx}}">{{ ingredient }}</label>
+  </div>
 </div>
 
-<button
-  *ngIf="buttonVisibility.back"
-  (click)="returnToPreviousStep()">
-  Back
-</button>
+<div class="actions">
+  <button
+    class="button"
+    *ngIf="buttonVisibility.back"
+    (click)="returnToPreviousStep()">
+    Back
+  </button>
 
-<button
-  *ngIf="buttonVisibility.next"
-  (click)="proceedToNextStep()">
-  Next
-</button>
+  <button
+    class="button positive"
+    *ngIf="buttonVisibility.next"
+    (click)="proceedToNextStep()">
+    Next
+  </button>
 
-<button
-  *ngIf="buttonVisibility.addToCart"
-  (click)="addPizzaToOrder()">
-  Add To Cart
-</button>
+  <button
+    class="button positive"
+    *ngIf="buttonVisibility.addToCart"
+    (click)="addPizzaToOrder()">
+    Add To Cart
+  </button>
+</div>

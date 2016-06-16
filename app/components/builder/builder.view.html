@@ -1,3 +1,10 @@
-{{ (pizza | async)?.price | currency : 'USD' : true }}
+<div class="progress-bar">
+  <div class="instructions">
+    {{ instructions[(pizza | async)?.step] }}
+  </div>
+  <div class="price">
+    {{ (pizza | async)?.price | currency : 'USD' : true }}
+  </div>
+</div>
 
 <builder-step></builder-step>

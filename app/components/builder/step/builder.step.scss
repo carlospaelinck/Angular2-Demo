@@ -1,0 +1,29 @@
+@import '~assets/styles/variables';
+
+.selections {
+  text-align: center;
+  padding: 2em 0;
+
+  .selection {
+    display: inline-block;
+    margin: 1em 0.5em;
+
+    input {
+      display: none;
+
+      &:checked + label {
+        background: $red;
+        border-color: $red;
+        color: #fff;
+      }
+    }
+
+    label {
+      border: 2px solid $brown;
+      border-radius: 4px;
+      color: $brown;
+      padding: 0.5em 1.5em;
+      font-size: 1.33em;
+    }
+  }
+}
