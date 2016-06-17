@@ -15,11 +15,7 @@ export const orderReducer: ActionReducer<Object> = (state = defaultState, action
     }
 
     case OrderActions.ADD_TO_ORDER: {
-      const pizza = {
-        ingredients: action.payload.ingredients,
-        price: action.payload.price
-      }
-      const pizzas = [ ...state.pizzas, pizza ]
+      const pizzas = [ ...state.pizzas, action.payload ]
       return Object.assign({}, state, { pizzas })
     }
 

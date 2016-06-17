@@ -4,11 +4,35 @@ header {
   background: $brown;
   padding: 5px 0;
   width: 100%;
-}
 
-h1 {
-  font-family: 'Satisfy';
-  font-size: 1.5em;
-  padding: 0 0 0 10px;
-  color: #fff;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: stretch;
+
+  a {
+    color: #fff;
+    text-decoration: none;
+
+    &:hover, &:active {
+      text-decoration: underline;
+    }
+  }
+
+  h1 {
+    color: #fff;
+    font-family: 'Satisfy';
+    font-size: 1.75em;
+    padding: 0 0 0 10px;
+    flex: 1 auto;
+  }
+
+  .links {
+    padding-right: 10px;
+
+    a {
+      line-height: 40px;
+      font-weight: 600;
+      font-size: 1.05em;
+    }
+  }
 }

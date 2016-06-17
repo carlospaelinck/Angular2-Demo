@@ -7,11 +7,12 @@ import { Observable } from 'rxjs'
   styles: [ require('./header.view.scss') ],
   template: `
     <header>
-      <h1>Milo’s Pizza</h1>
+      <h1>
+        <a [linkTo]="'/'">Milo’s Pizza</a>
+      </h1>
       <div class="links">
-        <a [linkTo]="'/'">Home</a>
         <a [linkTo]="'/cart'">
-          Order: {{ (order | async)?.pizzas.length }}
+          View Order ({{ (order | async)?.pizzas.length }})
         </a>
       </div>
     </header>

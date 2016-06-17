@@ -1,9 +1,14 @@
-
-
-{{ pizza.ingredients.crust }}
-{{ pizza.ingredients.cheese }}
-{{ pizza.ingredients.sauce }}
-{{ pizza.ingredients.meat }}
-{{ pizza.ingredients.veggies }}
-{{ pizza.price | currency : 'USD' : true }}
-<button (click)="removeFromCart()">Remove</button>
+<div class="cart-item">
+  <div class="ingredients">
+    <h1>{{ pizza.ingredients.crust }} Pizza</h1>
+    <h2>with {{ pizza.ingredients.cheese === 'None' ? 'No' : pizza.ingredients.cheese }} Cheese and {{ pizza.ingredients.sauce }} Sauce</h2>
+    <p>{{ pizza.ingredients.meat.join(', ') }}</p>
+    <p>{{ pizza.ingredients.veggies.join(', ') }}</p>
+  </div>
+  <div class="price">
+    {{ pizza.price | currency : 'USD' : true : '1.2-2' }}
+  </div>
+  <div class="controls">
+    <button class="button remove" (click)="removeFromCart()">Remove</button>
+  </div>
+</div>

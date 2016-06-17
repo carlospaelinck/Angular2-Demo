@@ -3,7 +3,7 @@
     {{ instructions[(pizza | async)?.step] }}
   </div>
   <div class="price">
-    {{ (pizza | async)?.price | currency : 'USD' : true }}
+    {{ (pizza | async)?.price | currency : 'USD' : true : '1.2-2' }}
   </div>
 </div>
 

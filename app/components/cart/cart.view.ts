@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { Store } from '@ngrx/store'
-import { Observable, Subscription } from 'rxjs'
+import { Observable, Subscription, BehaviorSubject } from 'rxjs'
 import { OrderActions } from '../../actions/order'
 import { Router } from '@ngrx/router'
 import { CartItemComponent } from './item/cart.item'
@@ -14,9 +14,9 @@ import { CartItemComponent } from './item/cart.item'
 
 export class CartViewComponent {
   order: Observable<Object>
+  totalPrice: BehaviorSubject<number>
   subscription: Subscription
   customerName: string = ''
-  totalPrice: number = 0
 
   constructor(
     private orderActions: OrderActions,
@@ -24,6 +24,7 @@ export class CartViewComponent {
     private store: Store<Object>
   ) {
     this.order = this.store.select('order')
+    this.totalPrice = new BehaviorSubject<number>(0)
 
     this.subscription = this.order.subscribe((order: any) => {
       if (order.status === 'SUCCESS') {
@@ -31,6 +32,8 @@ export class CartViewComponent {
         this.orderActions.createNewOrder()
         this.router.go('/')
       }
+
+      this.calculateTotalPrice(order.pizzas)
     })
   }
 
@@ -41,6 +44,12 @@ export class CartViewComponent {
   placeOrder() {
     this.orderActions.setCustomerName(this.customerName)
     this.orderActions.placeOrder()
+  }
+
+  calculateTotalPrice(pizzas: Array<any>) {
+    let price: number = 0
+    pizzas.forEach(pizza => price += pizza.price)
+    this.totalPrice.next(price)
   }
 
   ngOnDestroy() {

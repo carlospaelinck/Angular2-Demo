@@ -15,3 +15,15 @@
     }
   }
 }
+
+.actions {
+  h1 {
+    color: $brown;
+    font-size: 1.75em;
+    margin: 0 0 0.5em;
+
+    .label {
+      font-weight: 600;
+    }
+  }
+}

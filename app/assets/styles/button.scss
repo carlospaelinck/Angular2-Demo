@@ -28,6 +28,19 @@
     }
   }
 
+  &.remove {
+    background: #fff;
+    border-color: $red;
+    color: $red;
+    font-size: 1em;
+
+    &:hover, &:active {
+      background: darken($red, 5%);
+      border-color: darken($red, 5%);
+      color: #fff;
+    }
+  }
+
   &:disabled, &:disabled:hover, &:disabled:active {
     background: #eee;
     border-color: #ddd;

@@ -1,3 +1,42 @@
-:host {
-  background: red;
+@import '~assets/styles/variables';
+
+.cart-item {
+  padding: 1.25em;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: stretch;
+
+  .ingredients {
+    flex: 1 auto;
+
+    h1 {
+      color: $red;
+      font-size: 1.33em;
+      font-weight: 600;
+    }
+
+    h2 {
+      font-size: 1.1em;
+      font-weight: 600;
+      color: $brown;
+    }
+
+    p {
+      font-size: 1em;
+      color: $brown;
+      line-height: 1.25em;
+    }
+  }
+
+  .price {
+    color: $brown;
+    font-size: 1.5em;
+    font-weight: 600;
+    padding: 0 1em;
+    text-align: right;
+  }
+
+  .controls {
+
+  }
 }

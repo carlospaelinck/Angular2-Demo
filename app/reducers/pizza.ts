@@ -36,7 +36,18 @@ export const pizzaReducer: ActionReducer<Object> = (state = defaultState, action
       }
 
       const ingredients = Object.assign({}, state.ingredients, updatedIngredient)
-      const price = 7.99 + ingredients.meat.length * 1.99 + ingredients.veggies.length * 0.99
+      let price = 7.99 + ingredients.meat.length * 1.99 + ingredients.veggies.length * 0.99
+
+      switch (ingredients.cheese) {
+      case 'None': price -= 1.70; break
+      case 'Light': price -= 0.85; break
+      case 'Extra': price += 1.30; break
+      }
+
+      if (ingredients.crust === 'Gluten Free') {
+        price += 2.50
+      }
+
       return Object.assign({}, state, { ingredients, price })
     }
 
