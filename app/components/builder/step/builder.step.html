@@ -1,5 +1,5 @@
 <div class="selections">
-  <div class="selection" *ngFor="let ingredient of availableIngredients; #idx = index">
+  <div class="selection" *ngFor="let ingredient of availableIngredients; let idx = index">
     <input
       id="selection-{{idx}}"
       #ingredientElement

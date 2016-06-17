@@ -1,19 +1,29 @@
-<div *ngFor="let pizza of (order | async)?.pizzas">
+<div class="cart-items">
   <cart-item
+    *ngFor="let pizza of (order | async)?.pizzas"
     [pizza]="pizza"
     (onRemove)="removePizzaFromCart($event)">
   </cart-item>
+  <div
+    *ngIf="(order | async)?.pizzas.length === 0"
+    class="no-items">
+    <h2>There are no pizzas in your order.</h2>
+    <a class="button positive" [linkTo]="'/builder'">Create a Pizza</a>
+  </div>
 </div>
 
-<input
-  placeholder="Customer Name"
-  [disabled]="(order | async)?.pizzas.length == 0"
-  type="text"
-  [(ngModel)]="customerName" />
+<div class="actions">
+  <input
+    class="text"
+    placeholder="Customer Name"
+    [disabled]="(order | async)?.pizzas.length == 0"
+    type="text"
+    [(ngModel)]="customerName" />
 
-{{ customerName }}
-<button
-  [disabled]="customerName.length == 0 || (order | async)?.pizzas.length == 0"
-  (click)="placeOrder()">
-  Place Order
-</button>
+  <button
+    class="button positive"
+    [disabled]="customerName.length == 0 || (order | async)?.pizzas.length == 0"
+    (click)="placeOrder()">
+    Place Order
+  </button>
+</div>

@@ -1,0 +1,18 @@
+.text {
+  background: #fff;
+  border: 2px solid darken($light-brown, 10%);
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: darken($brown, 15%);
+  font-size: 1.25em;
+  font-weight: 600;
+  margin: 0;
+  padding: 0.5em;
+  text-decoration: none;
+
+  &:disabled {
+    -webkit-text-fill-color: #ccc;
+    border-color: #ddd;
+    color: #ddd;
+  }
+}

@@ -27,6 +27,12 @@
       border-color: darken($green, 15%);
     }
   }
+
+  &:disabled, &:disabled:hover, &:disabled:active {
+    background: #eee;
+    border-color: #ddd;
+    color: #ccc;
+  }
 }
 
 .actions {

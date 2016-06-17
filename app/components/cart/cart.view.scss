@@ -1,0 +1,17 @@
+@import '~assets/styles/variables';
+
+.cart-items {
+  padding: 0;
+  margin: 0;
+
+  .no-items {
+    text-align: center;
+    padding: 2em 0 3em;
+
+    h2 {
+      color: $brown;
+      font-size: 1.75em;
+      margin: 0 auto 1em;
+    }
+  }
+}
